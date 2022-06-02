@@ -1,0 +1,41 @@
+<div *ngIf="!dataPopulated" class="loading"></div>
+<div *ngIf="dataPopulated">
+  <form>
+    <label for="type">Filter pokemon type: </label>
+    <input type="text" id="type" name="type" [(ngModel)]="pokemonType" />
+    <button type="button" (click)="clearInput()">Clear</button>
+    <label>Sort by: &nbsp;</label>
+    <select
+      class="mySelect"
+      [(ngModel)]="sortParam"
+      [ngModelOptions]="{ standalone: true }"
+    >
+      <option value="height">Height</option>
+      <option value="power">Power</option>
+      <option value="speed">Speed</option>
+      <option value="defence">Defence</option>
+    </select>
+    <button type="button" (click)="toggleSort()">{{ sortOrder }}</button>
+  </form>
+  <div class="pokemon-grid">
+    <div
+      class="box"
+      *ngFor="
+        let pokemon of pokemonDetails
+          | filter: pokemonType
+          | sort: [sortParam, sortFlag]
+      "
+    >
+      <div *ngIf="pokemon === -1">"No matches"</div>
+      <div *ngIf="pokemon !== -1">
+        <img [src]="pokemon.sprites.front_default" alt="pokemon.name" />
+        <h3>{{ pokemon.name }}</h3>
+        <p><b>Type : </b> {{ pokemon.types[0].type.name }}</p>
+        <p><b>Height : </b> {{ pokemon.height }}</p>
+        <p><b>Power : </b> {{ pokemon.stats[1].base_stat }}</p>
+        <p><b>Speed : </b> {{ pokemon.stats[5].base_stat }}</p>
+        <p><b>Defence : </b> {{ pokemon.stats[2].base_stat }}</p>
+      </div>
+    </div>
+  </div>
+</div>
