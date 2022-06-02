@@ -1,4 +1,4 @@
-# PokemonDex-EPNS
+# PokeDex-EPNS
 
 # Question ID - 2.A   
 
